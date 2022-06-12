@@ -1,5 +1,6 @@
 plugins {
-    kotlin("multiplatform") version "1.6.21"
+    kotlin("multiplatform") version "1.7.0"
+    kotlin("native.cocoapods") version "1.7.0"
 }
 
 group = "me.nico"
@@ -25,6 +26,18 @@ kotlin {
                 cssSupport.enabled = true
             }
         }
+    }
+    ios()
+    cocoapods {
+        version = "1.0"
+        summary = "Some description for the Shared Module"
+        homepage = "Link to the Shared Module homepage"
+        ios.deploymentTarget = "14.1"
+        podfile = project.file("iosApp/Podfile")
+        framework {
+            baseName = "core"
+        }
+        pod("icu4c-iosx")
     }
     val hostOs = System.getProperty("os.name")
     val isMingwX64 = hostOs.startsWith("Windows")
